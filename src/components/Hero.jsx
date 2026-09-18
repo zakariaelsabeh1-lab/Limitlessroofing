@@ -99,8 +99,8 @@ export default function Hero() {
 
           <motion.p className="hero-sub" variants={fadeV}>
             Limitless Roofing Inc. builds roofs to last across British Columbia. Metal, shingle,
-            cedar, composite, and flat systems installed with two decades of hands-on experience and
-            a 5 year labour warranty.
+            composite, and flat systems installed with two decades of hands-on experience and a 5
+            year labour warranty.
           </motion.p>
 
           <motion.div className="hero-cta" variants={fadeV}>

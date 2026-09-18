@@ -16,55 +16,43 @@ export const BUSINESS = {
 // Flip the testimonials block on once real reviews exist.
 export const SHOW_TESTIMONIALS = false
 
-// `image` maps to public/services/<image>.jpg (rendered when the file exists).
+// `image` maps to public/services/<image>.jpg (rendered when the file exists,
+// dark textured placeholder otherwise). One line of copy per card.
 export const SERVICES = [
   {
     id: 'metal',
-    name: 'Residential Metal',
-    tag: 'Standing seam and specialty',
-    desc: 'Standing seam, interlocking metal shingles, and specialty profiles built to shed BC snow and last decades.',
+    name: 'Metal Roofing',
+    desc: 'Standing seam and interlocking metal built to shed BC snow for decades.',
     icon: 'metal',
     image: 'metal',
   },
   {
     id: 'shingles',
-    name: 'BP Shingles',
-    tag: 'Asphalt and architectural',
-    desc: 'BP asphalt and architectural shingles installed clean and tight, the dependable workhorse roof done right.',
+    name: 'Asphalt Shingles',
+    desc: 'BP architectural shingles installed clean and tight, the workhorse roof done right.',
     icon: 'shingle',
     image: 'shingles',
   },
   {
-    id: 'cedar',
-    name: 'Cedar Shakes',
-    tag: 'Natural character',
-    desc: 'Hand laid cedar shake roofing that brings warmth and character, sealed and ventilated to protect it.',
-    icon: 'cedar',
-    image: 'cedar',
-  },
-  {
     id: 'composite',
     name: 'Composite',
-    tag: 'Modern and durable',
-    desc: 'Composite roofing that mimics slate or shake with the toughness and low maintenance of modern materials.',
+    desc: 'The look of slate or shake with modern toughness and low maintenance.',
     icon: 'composite',
     image: 'composite',
   },
   {
     id: 'torch-on',
-    name: 'Torch On Flat',
-    tag: 'Commercial and residential',
-    desc: 'Torch on membrane flat roofing sealed watertight for commercial and residential low slope roofs.',
+    name: 'Torch On',
+    desc: 'Torch on membrane flat roofing sealed watertight on low slope roofs.',
     icon: 'flat',
     image: 'torch-on',
   },
   {
-    id: 'epdm-tpo',
-    name: 'EPDM & TPO Flat',
-    tag: 'Rubber and welded membrane',
-    desc: 'EPDM rubber and heat welded TPO flat roofing systems built for durability and clean, lasting seams.',
+    id: 'epdm',
+    name: 'EPDM',
+    desc: 'EPDM rubber flat roofing built for durability and clean, lasting seams.',
     icon: 'specialty',
-    image: 'epdm-tpo',
+    image: 'epdm',
   },
 ]
 
@@ -81,7 +69,7 @@ export const TRUST = [
   '20 Years Experience',
   'Serving All of BC',
   'Residential and Commercial',
-  'Metal, Shingle, Cedar and Flat',
+  'Metal, Shingle and Flat Roofing',
 ]
 
 export const WARRANTY_POINTS = [

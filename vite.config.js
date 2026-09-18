@@ -85,10 +85,9 @@ function siteAssetsPlugin() {
       services: {
         metal: has('services/metal.jpg'),
         shingles: has('services/shingles.jpg'),
-        cedar: has('services/cedar.jpg'),
         composite: has('services/composite.jpg'),
         'torch-on': has('services/torch-on.jpg'),
-        'epdm-tpo': has('services/epdm-tpo.jpg'),
+        epdm: has('services/epdm.jpg'),
       },
       sections: {
         why: has('sections/why.jpg'),

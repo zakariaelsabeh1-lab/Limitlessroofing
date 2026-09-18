@@ -15,7 +15,7 @@ and it appears. If a file is missing, the site falls back to a dark gradient or
 panel so nothing breaks.
 
 - `public/hero.mp4` + `public/hero-poster.jpg` — full-screen hero video (slow zoom + parallax)
-- `public/services/metal.jpg`, `shingles.jpg`, `cedar.jpg`, `composite.jpg`, `torch-on.jpg`, `epdm-tpo.jpg` — service card backgrounds
+- `public/services/metal.jpg`, `shingles.jpg`, `composite.jpg`, `torch-on.jpg`, `epdm.jpg` — service card backgrounds
 - `public/sections/why.jpg`, `public/sections/warranty.jpg` — section backgrounds (parallax)
 
 ## Develop

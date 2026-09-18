@@ -1,6 +1,5 @@
 import Contact from './components/Contact'
 import Curtain from './components/Curtain'
-import Cursor from './components/Cursor'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
@@ -17,7 +16,6 @@ export default function App() {
   return (
     <>
       <Curtain />
-      <Cursor />
       <Nav />
       <main>
         <Hero />
