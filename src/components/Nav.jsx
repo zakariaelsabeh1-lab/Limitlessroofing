@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { BUSINESS } from '../data'
-import { Phone } from './Icons'
+import { Arrow, Phone } from './Icons'
 
 const LINKS = [
   ['Services', '#services'],
@@ -92,10 +92,21 @@ export default function Nav() {
                 {label}
               </motion.a>
             ))}
-            <a className="call-btn mm-call" href={BUSINESS.phoneHref} onClick={() => setOpen(false)}>
-              <Phone />
-              Call {BUSINESS.phoneDisplay}
-            </a>
+            <motion.div
+              className="mm-ctas"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45 }}
+            >
+              <a className="btn btn-primary" href="#contact" onClick={() => setOpen(false)}>
+                Get a Free Estimate
+                <Arrow />
+              </a>
+              <a className="btn btn-ghost" href={BUSINESS.phoneHref} onClick={() => setOpen(false)}>
+                <Phone />
+                Call {BUSINESS.phoneDisplay}
+              </a>
+            </motion.div>
           </motion.nav>
         )}
       </AnimatePresence>

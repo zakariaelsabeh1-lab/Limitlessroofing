@@ -44,7 +44,13 @@ function workGalleryPlugin() {
           : has('png')
             ? `/work/${name}.png`
             : webp
-      return { name, webp: webp || jpg, jpg, label: labels[i % labels.length] }
+      // work-NN files use the rotating roof labels; any other filename is
+      // humanized (e.g. deck-rebuild.jpg -> "Deck Rebuild") so non-roof
+      // photos label themselves.
+      const label = /^work-\d+$/i.test(name)
+        ? labels[i % labels.length]
+        : name.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+      return { name, webp: webp || jpg, jpg, label }
     })
   }
 

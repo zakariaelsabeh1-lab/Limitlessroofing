@@ -16,7 +16,7 @@ function GalleryItem({ w, index, onOpen }) {
     >
       <picture>
         {w.webp && <source srcSet={w.webp} type="image/webp" />}
-        <img src={w.jpg} alt={`${w.label} roofing project by Limitless Roofing`} loading="lazy" decoding="async" />
+        <img src={w.jpg} alt={`${w.label} project by Limitless Roofing`} loading="lazy" decoding="async" />
       </picture>
       <span className="gexpand">
         <Expand />
@@ -55,10 +55,10 @@ export default function Work() {
         <Reveal>
           <span className="eyebrow">Our Work</span>
           <h2 className="section-title">
-            Roofs we&apos;re <span className="hl">proud of</span>
+            Work we are <span className="hl">proud of</span>
           </h2>
           <p className="lede">
-            Real projects, real BC weather. A look at the standard Limitless brings to every roof.
+            Real projects, real BC weather. A look at the standard Limitless brings to every job.
           </p>
         </Reveal>
 
@@ -119,7 +119,7 @@ export default function Work() {
             >
               <picture>
                 {works[open].webp && <source srcSet={works[open].webp} type="image/webp" />}
-                <img src={works[open].jpg} alt={`${works[open].label} roofing project`} />
+                <img src={works[open].jpg} alt={`${works[open].label} project`} />
               </picture>
             </motion.div>
             <div className="lb-cap">{works[open].label}</div>
