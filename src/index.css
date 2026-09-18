@@ -599,6 +599,10 @@ h1, h2, h3, h4 {
   .nav-links { display: none; }
   .nav .call-btn { display: none; }
   .hamburger { display: block; flex-shrink: 0; }
+  /* On small screens the hero content starts below the fixed header and flows
+     down instead of centering, so it can never ride up under the nav on short
+     viewports (phones with the address bar showing). */
+  .hero { align-items: flex-start; padding-top: calc(78px + 1.5rem); padding-bottom: 2.5rem; }
   .warranty-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
