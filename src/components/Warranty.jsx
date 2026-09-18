@@ -1,10 +1,23 @@
+import { assets } from 'virtual:site-assets'
 import { BUSINESS, WARRANTY_POINTS } from '../data'
+import { useParallax } from '../hooks/useParallax'
 import Reveal from './Reveal'
 import { Arrow } from './Icons'
 
 export default function Warranty() {
+  const bgRef = useParallax(0.18)
+  const img = assets.sections.warranty
   return (
-    <section className="section warranty" id="warranty">
+    <section className="section warranty has-bg" id="warranty">
+      <div className="section-bg" aria-hidden="true">
+        <div
+          className="section-bg-media"
+          ref={bgRef}
+          style={img ? { backgroundImage: `url(${img})` } : undefined}
+        />
+        <div className="section-bg-overlay warranty-overlay" />
+      </div>
+
       <div className="wrap warranty-grid">
         <Reveal className="warranty-seal">
           <span className="ring" />

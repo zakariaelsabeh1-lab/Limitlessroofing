@@ -1,7 +1,9 @@
-import { readdirSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+
+const publicDir = fileURLToPath(new URL('./public', import.meta.url))
 
 // Scans public/work for image pairs and exposes them as a virtual module.
 // Drop new files named work-XX.webp / work-XX.jpg into public/work and they
@@ -10,7 +12,6 @@ function workGalleryPlugin() {
   const virtualId = 'virtual:work-gallery'
   const resolvedId = '\0' + virtualId
   const workDir = fileURLToPath(new URL('./public/work', import.meta.url))
-  // Rotating roof-type labels for the hover overlay + lightbox caption.
   const labels = [
     'Standing Seam Metal',
     'Architectural Shingle',
@@ -43,27 +44,17 @@ function workGalleryPlugin() {
           : has('png')
             ? `/work/${name}.png`
             : webp
-      return {
-        name,
-        webp: webp || jpg,
-        jpg,
-        label: labels[i % labels.length],
-      }
+      return { name, webp: webp || jpg, jpg, label: labels[i % labels.length] }
     })
   }
 
   return {
     name: 'work-gallery',
-    resolveId(id) {
-      if (id === virtualId) return resolvedId
-    },
+    resolveId: (id) => (id === virtualId ? resolvedId : undefined),
     load(id) {
-      if (id === resolvedId) {
-        return `export const works = ${JSON.stringify(scan())}`
-      }
+      if (id === resolvedId) return `export const works = ${JSON.stringify(scan())}`
     },
     configureServer(server) {
-      // Refresh the module when files are added/removed in dev.
       const invalidate = () => {
         const mod = server.moduleGraph.getModuleById(resolvedId)
         if (mod) {
@@ -78,7 +69,56 @@ function workGalleryPlugin() {
   }
 }
 
+// Detects which optional media assets exist in public/ so components can render
+// real photos/video when present and fall back to a dark gradient otherwise.
+// Guarantees no 404s: paths are only emitted for files that actually exist.
+function siteAssetsPlugin() {
+  const virtualId = 'virtual:site-assets'
+  const resolvedId = '\0' + virtualId
+
+  const has = (rel) => (existsSync(fileURLToPath(new URL(`./public/${rel}`, import.meta.url))) ? `/${rel}` : null)
+
+  function scan() {
+    return {
+      heroVideo: has('hero.mp4'),
+      heroPoster: has('hero-poster.jpg'),
+      services: {
+        metal: has('services/metal.jpg'),
+        shingles: has('services/shingles.jpg'),
+        cedar: has('services/cedar.jpg'),
+        composite: has('services/composite.jpg'),
+        'torch-on': has('services/torch-on.jpg'),
+        'epdm-tpo': has('services/epdm-tpo.jpg'),
+      },
+      sections: {
+        why: has('sections/why.jpg'),
+        warranty: has('sections/warranty.jpg'),
+      },
+    }
+  }
+
+  return {
+    name: 'site-assets',
+    resolveId: (id) => (id === virtualId ? resolvedId : undefined),
+    load(id) {
+      if (id === resolvedId) return `export const assets = ${JSON.stringify(scan())}`
+    },
+    configureServer(server) {
+      const invalidate = () => {
+        const mod = server.moduleGraph.getModuleById(resolvedId)
+        if (mod) {
+          server.moduleGraph.invalidateModule(mod)
+          server.ws.send({ type: 'full-reload' })
+        }
+      }
+      server.watcher.add(publicDir)
+      server.watcher.on('add', invalidate)
+      server.watcher.on('unlink', invalidate)
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), workGalleryPlugin()],
+  plugins: [react(), workGalleryPlugin(), siteAssetsPlugin()],
 })

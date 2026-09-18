@@ -16,6 +16,7 @@ export const BUSINESS = {
 // Flip the testimonials block on once real reviews exist.
 export const SHOW_TESTIMONIALS = false
 
+// `image` maps to public/services/<image>.jpg (rendered when the file exists).
 export const SERVICES = [
   {
     id: 'metal',
@@ -23,6 +24,7 @@ export const SERVICES = [
     tag: 'Standing seam and specialty',
     desc: 'Standing seam, interlocking metal shingles, and specialty profiles built to shed BC snow and last decades.',
     icon: 'metal',
+    image: 'metal',
   },
   {
     id: 'shingles',
@@ -30,6 +32,7 @@ export const SERVICES = [
     tag: 'Asphalt and architectural',
     desc: 'BP asphalt and architectural shingles installed clean and tight, the dependable workhorse roof done right.',
     icon: 'shingle',
+    image: 'shingles',
   },
   {
     id: 'cedar',
@@ -37,6 +40,7 @@ export const SERVICES = [
     tag: 'Natural character',
     desc: 'Hand laid cedar shake roofing that brings warmth and character, sealed and ventilated to protect it.',
     icon: 'cedar',
+    image: 'cedar',
   },
   {
     id: 'composite',
@@ -44,20 +48,23 @@ export const SERVICES = [
     tag: 'Modern and durable',
     desc: 'Composite roofing that mimics slate or shake with the toughness and low maintenance of modern materials.',
     icon: 'composite',
+    image: 'composite',
   },
   {
-    id: 'flat',
-    name: 'Flat Roofing',
-    tag: 'Torch on, EPDM, TPO',
-    desc: 'Commercial and residential flat systems. Torch on membrane, EPDM rubber, and welded TPO done watertight.',
+    id: 'torch-on',
+    name: 'Torch On Flat',
+    tag: 'Commercial and residential',
+    desc: 'Torch on membrane flat roofing sealed watertight for commercial and residential low slope roofs.',
     icon: 'flat',
+    image: 'torch-on',
   },
   {
-    id: 'specialty',
-    name: 'Specialty Metal',
-    tag: 'Interlocking shingle',
-    desc: 'Interlocking metal shingle systems and custom flashing work for roofs that need a sharper finish.',
+    id: 'epdm-tpo',
+    name: 'EPDM & TPO Flat',
+    tag: 'Rubber and welded membrane',
+    desc: 'EPDM rubber and heat welded TPO flat roofing systems built for durability and clean, lasting seams.',
     icon: 'specialty',
+    image: 'epdm-tpo',
   },
 ]
 

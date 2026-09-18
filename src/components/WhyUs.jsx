@@ -1,10 +1,23 @@
+import { assets } from 'virtual:site-assets'
 import { STATS } from '../data'
+import { useParallax } from '../hooks/useParallax'
 import Counter from './Counter'
 import Reveal from './Reveal'
 
 export default function WhyUs() {
+  const bgRef = useParallax(0.18)
+  const img = assets.sections.why
   return (
-    <section className="section why" id="why">
+    <section className="section why has-bg" id="why">
+      <div className="section-bg" aria-hidden="true">
+        <div
+          className="section-bg-media"
+          ref={bgRef}
+          style={img ? { backgroundImage: `url(${img})` } : undefined}
+        />
+        <div className="section-bg-overlay" />
+      </div>
+
       <div className="wrap">
         <Reveal>
           <span className="eyebrow">Why Limitless</span>

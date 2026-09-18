@@ -1,49 +1,36 @@
-import { useState } from 'react'
+import { assets } from 'virtual:site-assets'
 import { SERVICES } from '../data'
 import Reveal from './Reveal'
 import { Arrow, SERVICE_ICONS } from './Icons'
 
 function Card({ s, index }) {
-  const [flipped, setFlipped] = useState(false)
   const Icon = SERVICE_ICONS[s.icon]
+  const img = assets.services[s.image]
   return (
     <Reveal
-      className={`flip ${flipped ? 'flipped' : ''}`}
+      as="a"
+      href="#contact"
+      className={`scard ${img ? '' : 'no-img'}`}
       delay={(index % 3) * 0.08}
-      role="button"
-      tabIndex={0}
-      aria-label={`${s.name}. ${s.desc}`}
-      onClick={() => setFlipped((v) => !v)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          setFlipped((v) => !v)
-        }
-      }}
+      aria-label={`${s.name}. ${s.desc} Get an estimate.`}
+      style={img ? { backgroundImage: `url(${img})` } : undefined}
     >
-      <div className="flip-inner">
-        <div className="flip-face flip-front">
-          <span className="fnum">0{index + 1}</span>
-          <div className="flip-icon">
-            <Icon />
-          </div>
-          <div>
-            <h3>{s.name}</h3>
-            <div className="ftag">{s.tag}</div>
-            <div className="fhint">Hover to learn more</div>
-          </div>
-        </div>
-        <div className="flip-face flip-back">
-          <div>
-            <h3>{s.name}</h3>
-            <p>{s.desc}</p>
-          </div>
-          <a className="estimate" href="#contact" onClick={(e) => e.stopPropagation()}>
-            Get Estimate
-            <Arrow />
-          </a>
-        </div>
-      </div>
+      <span className="scard-shade" />
+      <span className="scard-top">
+        <span className="scard-icon">
+          <Icon />
+        </span>
+        <span className="scard-num">0{index + 1}</span>
+      </span>
+      <span className="scard-body">
+        <span className="scard-tag">{s.tag}</span>
+        <h3>{s.name}</h3>
+        <span className="scard-desc">{s.desc}</span>
+        <span className="scard-cta">
+          Get Estimate
+          <Arrow />
+        </span>
+      </span>
     </Reveal>
   )
 }

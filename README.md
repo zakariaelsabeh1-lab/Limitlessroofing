@@ -5,9 +5,18 @@ Single-page marketing site for Limitless Roofing Inc. (Prince George, BC, servin
 ## Stack
 
 - React 19 + Vite
-- Three.js (cinematic wireframe roof hero)
-- Framer Motion (reveals, flip cards, curtain, mobile menu)
+- Framer Motion (reveals, curtain, mobile menu, lightbox)
 - Google Fonts: Barlow Condensed (display) + Sora (body)
+
+## Media assets (drop in, no code changes)
+
+All optional media is auto-detected at build time. Drop the file in, rebuild,
+and it appears. If a file is missing, the site falls back to a dark gradient or
+panel so nothing breaks.
+
+- `public/hero.mp4` + `public/hero-poster.jpg` — full-screen hero video (slow zoom + parallax)
+- `public/services/metal.jpg`, `shingles.jpg`, `cedar.jpg`, `composite.jpg`, `torch-on.jpg`, `epdm-tpo.jpg` — service card backgrounds
+- `public/sections/why.jpg`, `public/sections/warranty.jpg` — section backgrounds (parallax)
 
 ## Develop
 

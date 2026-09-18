@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { assets } from 'virtual:site-assets'
 import { BUSINESS } from '../data'
-import { useRoofScene } from '../hooks/useRoofScene'
 import { Arrow, Phone } from './Icons'
 
 const LINES = [
@@ -25,13 +25,53 @@ const fadeV = {
 }
 
 export default function Hero() {
-  const canvasRef = useRef(null)
-  useRoofScene(canvasRef)
+  const mediaRef = useRef(null)
+
+  // Slow parallax drift on the media as the hero scrolls out of view.
+  useEffect(() => {
+    const el = mediaRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let raf = 0
+    let ticking = false
+    const update = () => {
+      const y = window.scrollY || 0
+      const shift = Math.min(y, window.innerHeight) * 0.28
+      el.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0)`
+      ticking = false
+    }
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        raf = requestAnimationFrame(update)
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   return (
     <section className="hero" id="top">
-      <div className="hero-canvas" aria-hidden="true">
-        <canvas ref={canvasRef} />
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-media" ref={mediaRef}>
+          {assets.heroVideo ? (
+            <video
+              className="hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={assets.heroPoster || undefined}
+            >
+              <source src={assets.heroVideo} type="video/mp4" />
+            </video>
+          ) : assets.heroPoster ? (
+            <img className="hero-video" src={assets.heroPoster} alt="" />
+          ) : null}
+        </div>
       </div>
 
       <div className="wrap hero-inner">

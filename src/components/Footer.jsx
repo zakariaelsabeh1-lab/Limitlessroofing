@@ -43,9 +43,14 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span>
-            © {year} {BUSINESS.name}. All rights reserved.
+            © {year} {BUSINESS.name}. All rights reserved. Prince George, BC. Serving all of BC.
           </span>
-          <span>Prince George, BC. Serving all of British Columbia.</span>
+          <span className="footer-credit">
+            Website developed by{' '}
+            <a href="https://www.northgatedigital.ca" target="_blank" rel="noopener noreferrer">
+              Northgate Digital
+            </a>
+          </span>
         </div>
       </div>
     </footer>
