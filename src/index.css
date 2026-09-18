@@ -606,10 +606,15 @@ h1, h2, h3, h4 {
   .gitem:nth-child(n) { grid-column: span 2; grid-row: span 1; }
   .gitem:nth-child(3n+1) { grid-row: span 2; }
 }
-/* phones: logo icon only in the header; wordmark hidden, CTAs live in the
-   hamburger menu and the sticky bottom bar */
+/* phones: logo + scaled-down wordmark left, hamburger right, nothing else.
+   Estimate/call CTAs live in the hamburger menu and the sticky bottom bar. */
 @media (max-width: 768px) {
-  .nav .brand .bt { display: none; }
+  .nav .call-btn { display: none; }
+  .nav .brand img { width: 38px; height: 38px; }
+  .nav .brand { gap: 0.55rem; }
+  .nav .brand .bt { white-space: nowrap; }
+  .nav .brand .bt strong { font-size: 1.05rem; }
+  .nav .brand .bt span { font-size: 0.54rem; letter-spacing: 0.26em; }
 }
 @media (max-width: 640px) {
   .services-grid { grid-template-columns: 1fr; }
