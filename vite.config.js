@@ -12,14 +12,6 @@ function workGalleryPlugin() {
   const virtualId = 'virtual:work-gallery'
   const resolvedId = '\0' + virtualId
   const workDir = fileURLToPath(new URL('./public/work', import.meta.url))
-  const labels = [
-    'Standing Seam Metal',
-    'Architectural Shingle',
-    'Flat Roof System',
-    'Specialty Metal',
-    'Cedar Shake',
-    'Composite Roof',
-  ]
 
   function scan() {
     let files = []
@@ -28,29 +20,30 @@ function workGalleryPlugin() {
     } catch {
       return []
     }
+    // collect display bases (ignore -thumb variants; they belong to a base)
     const bases = new Set()
     for (const f of files) {
       const m = f.match(/^(.*)\.(webp|jpg|jpeg|png)$/i)
-      if (m) bases.add(m[1])
+      if (m && !/-thumb$/i.test(m[1])) bases.add(m[1])
     }
     const names = [...bases].sort()
-    return names.map((name, i) => {
-      const has = (ext) => files.some((f) => f.toLowerCase() === `${name}.${ext}`.toLowerCase())
-      const webp = has('webp') ? `/work/${name}.webp` : null
-      const jpg = has('jpg')
-        ? `/work/${name}.jpg`
-        : has('jpeg')
-          ? `/work/${name}.jpeg`
-          : has('png')
-            ? `/work/${name}.png`
-            : webp
-      // work-NN files use the rotating roof labels; any other filename is
-      // humanized (e.g. deck-rebuild.jpg -> "Deck Rebuild") so non-roof
-      // photos label themselves.
-      const label = /^work-\d+$/i.test(name)
-        ? labels[i % labels.length]
-        : name.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
-      return { name, webp: webp || jpg, jpg, label }
+    return names.map((name) => {
+      const has = (n) => files.some((f) => f.toLowerCase() === n.toLowerCase())
+      const pick = (n) => (has(n) ? `/work/${n}` : null)
+      const fullWebp = pick(`${name}.webp`)
+      const fullJpg =
+        pick(`${name}.jpg`) || pick(`${name}.jpeg`) || pick(`${name}.png`) || fullWebp
+      const thumbWebp = pick(`${name}-thumb.webp`)
+      const thumbJpg = pick(`${name}-thumb.jpg`)
+      return {
+        name,
+        // full-resolution for the lightbox
+        webp: fullWebp || fullJpg,
+        jpg: fullJpg,
+        // mobile-optimised thumbnail for the grid (falls back to full)
+        thumbWebp: thumbWebp || fullWebp || fullJpg,
+        thumbJpg: thumbJpg || fullJpg,
+      }
     })
   }
 
